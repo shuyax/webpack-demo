@@ -7,10 +7,12 @@ import Notes from './data.csv'
 import toml from './data.toml';
 import yaml from './data.yaml';
 import json from './data.json5';
-
+import printMe from './print.js';
 
 function component() {
     const element = document.createElement('div');
+    const btn = document.createElement('button');
+
     element.innerHTML = _.join(['Hello', 'webpack'], ' '); //It uses _.join() function from the Lodash library to join the strings 'Hello' and 'webpack' with a space.
     element.textContent = myName('Cody')
     element.classList.add('hello')
@@ -22,9 +24,18 @@ function component() {
     console.log(Data);
     console.log(Notes);
 
+    btn.innerHTML = 'Click me and check the console!';
+    btn.onclick = printMe;
+    element.appendChild(btn);
+
+
     return element;
 }
 document.body.append(component());
+
+if (process.env.NODE_ENV !== 'production') {
+    console.log('Looks like we are in development mode!');
+}
 
 console.log(toml.title); // output `TOML Example`
 console.log(toml.owner.name); // output `Tom Preston-Werner`
